@@ -52,6 +52,14 @@ public class OrderController : ControllerBase
         return order == null ? NotFound() : Ok(order);
     }
 
+    [HttpGet("code/{code}")]
+    public async Task<ActionResult> FindOne(int code)
+    {
+        var order = await _orderRepository.FindOneAsync(x => x.Code == code);
+
+        return order == null ? NotFound() : Ok(order);
+    }
+
     [HttpDelete("{id}")]
     public async Task<ActionResult<string>> DeleteOrder(string id)
     {

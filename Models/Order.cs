@@ -6,7 +6,7 @@ namespace API.Data.Models;
 [BsonCollection("Orders")]
 public class Order : Document
 {
-    public int code { get; set; }
+    public int Code { get; set; }
     public string? CustomerID { get; set; }
     public List<Product>? Products { get; set; }
     public double Total { get; set; }
