@@ -10,6 +10,6 @@ public class MapProfile : Profile
     {
         CreateMap<Person, PersonDTO>().ReverseMap();
         CreateMap<Product, ProductDTO>().ReverseMap();
-        CreateMap<OrderDTO, OrderDTO>().ReverseMap();
+        CreateMap<Order, OrderDTO>().ReverseMap();
     }
 }

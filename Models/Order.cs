@@ -11,6 +11,7 @@ public class Order : Document
     public List<Product>? Products { get; set; }
     public double Total { get; set; }
     public double Discount { get; set; }
+    public string? Status { get; set; }
     public DateTime AppointmentTime { get; set; }
     public DateTime EndTime { get; set; }
 }
