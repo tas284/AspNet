@@ -2,7 +2,7 @@ namespace API.Data.DTO;
 
 public class OrderDTO
 {
-    public int code { get; set; }
+    public int Code { get; set; }
     public string? CustomerID { get; set; }
     public List<ProductDTO>? Products { get; set; }
     public string? Status { get; set; }
