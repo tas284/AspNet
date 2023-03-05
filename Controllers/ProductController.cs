@@ -38,7 +38,7 @@ public class ProductController : ControllerBase
             product.Id = id;
             
             await _productRepository.UpdateOneAsync(id, product);
-            return Ok($"Product updated successfully! Id: {id}");
+            return Ok(product);
         }
         catch(Exception ex){
             return BadRequest(ex.Message);
