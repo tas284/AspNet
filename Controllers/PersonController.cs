@@ -30,16 +30,18 @@ public class PersonController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult> UpdatePerson([FromBody] PersonDTO entity, string id)
     {
-        try{
-            if(!_peopleRepository.Exists(x => x.Id == id))
+        try
+        {
+            if (!_peopleRepository.Exists(x => x.Id == id))
                 return NotFound();
-            
+
             var person = _mapper.Map<Person>(entity);
             person.Id = id;
             await _peopleRepository.UpdateOneAsync(id, person);
             return Ok($"Person updated successfully! Id: {id}");
         }
-        catch(Exception ex){
+        catch (Exception ex)
+        {
             return BadRequest(ex.Message);
         }
     }
@@ -55,9 +57,9 @@ public class PersonController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult<string>> DeletePerson(string id)
     {
-        if(!_peopleRepository.Exists(x => x.Id == id))
+        if (!_peopleRepository.Exists(x => x.Id == id))
             return NotFound($"Person not found! Id: {id}");
-        
+
         try
         {
             await _peopleRepository.DeleteByIdAsync(id);
@@ -69,6 +71,13 @@ public class PersonController : ControllerBase
         }
     }
 
-    [HttpGet("")]
-    public ActionResult GetPeople() => Ok(_peopleRepository.FilterBy(_ => true));
+    [HttpGet("all/{name?}")]
+    public ActionResult GetPeople(string? name = null)
+    {
+        if (!string.IsNullOrEmpty(name))
+            return Ok(_peopleRepository.FilterBy(x => x.FirstName!.ToLower().Contains(name.ToLower())));
+
+        return Ok(_peopleRepository.FilterBy(_ => true));
+    }
+
 }

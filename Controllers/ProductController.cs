@@ -72,11 +72,11 @@ public class ProductController : ControllerBase
         }
     }
 
-    [HttpGet("{name?}")]
+    [HttpGet("all/{name?}")]
     public ActionResult GetProducts(string? name = null)
     {
         if (!string.IsNullOrEmpty(name))
-            return Ok(_productRepository.FilterBy(x => x.Name!.Contains(name)));
+            return Ok(_productRepository.FilterBy(x => x.Name!.ToLower().Contains(name.ToLower())));
 
         return Ok(_productRepository.FilterBy(_ => true));
     }
