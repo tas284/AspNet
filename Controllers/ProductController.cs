@@ -30,17 +30,19 @@ public class ProductController : ControllerBase
     [HttpPut("{id}")]
     public async Task<ActionResult> Updateproduct([FromBody] ProductDTO entity, string id)
     {
-        try{
-            if(!_productRepository.Exists(x => x.Id == id))
+        try
+        {
+            if (!_productRepository.Exists(x => x.Id == id))
                 return NotFound();
-            
+
             var product = _mapper.Map<Product>(entity);
             product.Id = id;
-            
+
             await _productRepository.UpdateOneAsync(id, product);
             return Ok($"Product updated successfully! Id: {id}");
         }
-        catch(Exception ex){
+        catch (Exception ex)
+        {
             return BadRequest(ex.Message);
         }
     }
@@ -56,7 +58,7 @@ public class ProductController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteProduct(string id)
     {
-        if(!_productRepository.Exists(x => x.Id == id))
+        if (!_productRepository.Exists(x => x.Id == id))
             return NotFound($"Product not found! Id: {id}");
 
         try
@@ -70,6 +72,12 @@ public class ProductController : ControllerBase
         }
     }
 
-    [HttpGet("")]
-    public ActionResult GetProducts() => Ok(_productRepository.FilterBy(_ => true));
+    [HttpGet("{name?}")]
+    public ActionResult GetProducts(string? name = null)
+    {
+        if (!string.IsNullOrEmpty(name))
+            return Ok(_productRepository.FilterBy(x => x.Name!.Contains(name)));
+
+        return Ok(_productRepository.FilterBy(_ => true));
+    }
 }
