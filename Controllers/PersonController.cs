@@ -75,7 +75,12 @@ public class PersonController : ControllerBase
     public ActionResult GetPeople(string? name = null)
     {
         if (!string.IsNullOrEmpty(name))
-            return Ok(_peopleRepository.FilterBy(x => x.FirstName!.ToLower().Contains(name.ToLower())));
+        {
+            return Ok(_peopleRepository.FilterBy(
+                x => x.FirstName!.ToLower().Contains(name.ToLower()) 
+                || x.LastName!.ToLower().Contains(name.ToLower())
+            ));
+        }
 
         return Ok(_peopleRepository.FilterBy(_ => true));
     }
