@@ -8,6 +8,7 @@ public class Order : Document
 {
     public int Code { get; set; }
     public string? CustomerID { get; set; }
+    public string? Customer { get; set; }
     public List<Product>? Products { get; set; }
     public double Total { get; set; }
     public double Discount { get; set; }
