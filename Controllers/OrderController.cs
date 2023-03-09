@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class OrderController : ControllerBase
 {
     private readonly IMongoRepository<Order> _orderRepository;
