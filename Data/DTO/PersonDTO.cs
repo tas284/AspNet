@@ -7,6 +7,7 @@ public class PersonDTO
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
     public string? Phone { get; set; }
+    public string? type { get; set; }
     [JsonIgnore]
     public DateTime UpdatedAt { get; set; } = DateTime.Now;
 }
