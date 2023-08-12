@@ -38,7 +38,7 @@ public class PersonController : ControllerBase
             var person = _mapper.Map<Person>(entity);
             person.Id = id;
             await _peopleRepository.UpdateOneAsync(id, person);
-            return Ok($"Person updated successfully! Id: {id}");
+            return Ok(person);
         }
         catch (Exception ex)
         {
