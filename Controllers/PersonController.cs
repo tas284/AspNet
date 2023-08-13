@@ -23,6 +23,9 @@ public class PersonController : ControllerBase
     public async Task<ActionResult> AddPerson([FromBody] PersonDTO entity)
     {
         var person = _mapper.Map<Person>(entity);
+        if (_peopleRepository.Exists(x => x.FirstName == entity.FirstName && x.LastName == entity.LastName))
+            return NotFound("Já existe uma pessoa cadastrada com este nome e sobrenome.");
+
         await _peopleRepository.InsertOneAsync(person);
         return Ok(person);
     }
