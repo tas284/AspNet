@@ -23,6 +23,9 @@ public class ProductController : ControllerBase
     public async Task<ActionResult> AddProduct([FromBody] ProductDTO entity)
     {
         var product = _mapper.Map<Product>(entity);
+        if (_productRepository.Exists(x => x.Name == entity.Name))
+                return NotFound("Já existe um produto cadastrado com este nome.");
+
         await _productRepository.InsertOneAsync(product);
         return Ok(product);
     }
