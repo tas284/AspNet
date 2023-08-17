@@ -9,19 +9,29 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+    networks:
+      - backend
 
   api:
     container_name: api
     build:
       dockerfile: Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - "MongoDBSettings:ConnectionString=mongodb://mongodb:27017"
+    env_file:
+      - .env
+    # environment:
+    #   - ASPNETCORE_ENVIRONMENT=Development
+    #   - "MongoDBSettings:ConnectionString=mongodb://mongodb:27017"
     depends_on:
       - mongodb
     ports:
       - "5000:80"
       - "5001:443"
+    networks:
+      - backend
 
+networks:
+  backend:
+    name: backend
 volumes:
   mongo_data:
+    name: api_mongo_data
