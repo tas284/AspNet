@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  my-mongodb:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    expose:
+      - 27017
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - backend
+
+  api:
+    container_name: api
+    image: tiagosaldanha/api-barbershop-aspnet:latest
+    restart: always
+    environment:
+      - "ASPNETCORE_ENVIRONMENT=Production"
+      - "MongoDBSettings__ConnectionString=mongodb://my-mongodb:27017"
+    depends_on:
+      - my-mongodb
+    ports:
+      - "5000:80"
+      - "5001:443"
+    networks:
+      - backend
+
+networks:
+  backend:
+    name: backend
+volumes:
+  mongo_data:
+    name: api_mongo_data
