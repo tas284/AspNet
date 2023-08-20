@@ -11,5 +11,7 @@ public class MapProfile : Profile
         CreateMap<Person, PersonDTO>().ReverseMap();
         CreateMap<Product, ProductDTO>().ReverseMap();
         CreateMap<Order, OrderDTO>().ReverseMap();
+        CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
+        CreateMap<Customer, CustomerDTO>().ReverseMap();
     }
 }

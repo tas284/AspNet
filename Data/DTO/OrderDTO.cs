@@ -3,8 +3,8 @@ namespace API.Data.DTO;
 public class OrderDTO
 {
     public int Code { get; set; }
-    public string? CustomerID { get; set; }
-    public List<ProductDTO>? Products { get; set; }
+    public CustomerDTO? Customer { get; set; }
+    public List<OrderItemDTO>? Products { get; set; }
     public string? Status { get; set; }
     public double Total { get; set; }
     public double Discount { get; set; }

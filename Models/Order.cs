@@ -1,4 +1,5 @@
 using API.Abstract;
+using API.Data.DTO;
 using API.Data.Repositories;
 
 namespace API.Data.Models;
@@ -7,9 +8,8 @@ namespace API.Data.Models;
 public class Order : Document
 {
     public int Code { get; set; }
-    public string? CustomerID { get; set; }
-    public string? Customer { get; set; }
-    public List<Product>? Products { get; set; }
+    public Customer? Customer { get; set; }
+    public List<OrderItem>? Products { get; set; }
     public double Total { get; set; }
     public double Discount { get; set; }
     public string? Status { get; set; }
