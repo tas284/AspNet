@@ -60,6 +60,19 @@ public class OrderController : ControllerBase
         return order == null ? NotFound() : Ok(order);
     }
 
+    [HttpGet("customer/{name}")]
+    public ActionResult GetByCustomer(string name)
+    {
+        if (!string.IsNullOrEmpty(name))
+        {
+            return Ok(_orderRepository.FilterBy(
+                x => x.Customer!.Name!.ToLower().Contains(name.ToLower())
+            ));
+        }
+
+        return Ok(_orderRepository.FilterBy(_ => true));
+    }
+
     [HttpDelete("{id}")]
     public async Task<ActionResult<string>> DeleteOrder(string id)
     {
@@ -78,5 +91,5 @@ public class OrderController : ControllerBase
     }
 
     [HttpGet("")]
-    public ActionResult GetPeople() => Ok(_orderRepository.FilterBy(_ => true));
+    public ActionResult GetOrders() => Ok(_orderRepository.FilterBy(_ => true));
 }
